@@ -28,24 +28,18 @@ RUN echo "**** install security fix packages ****" && \
     tar -C /s6/ -Jxpf /tmp/s6-overlay-binaries.tar.xz
 
 # Duplicacy builder
-FROM alpine:3.17.0 AS duplicacy-builder
+FROM golang:alpine AS duplicacy-builder
 
-ENV PACKAGE="gilbertchen/duplicacy"
-ENV PACKAGEVERSION="3.0.1"
-ARG TARGETPLATFORM
+ENV TAG="v3.0.1"
 
-RUN echo "**** install security fix packages ****" && \
-    echo "**** download ${PACKAGE} ****" && \
-    PACKAGEPLATFORM=$(case ${TARGETPLATFORM} in \
-        "linux/amd64")  echo "x64"    ;; \
-        "linux/386")    echo "i386"   ;; \
-        "linux/arm64")  echo "arm64"  ;; \
-        "linux/arm/v7") echo "arm"    ;; \
-        "linux/arm/v6") echo "arm"    ;; \
-        *)              echo ""       ;; esac) && \
-    echo "Package ${PACKAGE} platform ${PACKAGEPLATFORM} version ${PACKAGEVERSION}" && \
-    wget -q "https://github.com/${PACKAGE}/releases/download/v${PACKAGEVERSION}/duplicacy_linux_${PACKAGEPLATFORM}_${PACKAGEVERSION}" -qO /tmp/duplicacy
-
+RUN echo "**** building duplicacy from source ****" && \
+    apk add git \
+    GO111MODULE=off go get github.com/gilbertchen/duplicacy \
+    cd ${GOPATH}/src/github.com/gilbertchen/duplicacy \
+    git reset --hard ${TAG} \
+    go install github.com/gilbertchen/duplicacy/duplicacy \
+    cp ${GOPATH}/bin/duplicacy /tmp/duplicacy
+    
 # rootfs builder
 FROM alpine:3.17.0 AS rootfs-builder
 
