@@ -34,7 +34,7 @@ ENV TAG="v3.0.1"
 
 RUN echo "**** building duplicacy from source ****" && \
     apk --no-cache --no-progress add git && \
-    GO111MODULE=off go get github.com/gilbertchen/duplicacy && \
+    GO111MODULE=off go get github.com/gilbertchen/duplicacy/duplicacy && \
     cd ${GOPATH}/src/github.com/gilbertchen/duplicacy && \
     git reset --hard ${TAG} && \
     go install github.com/gilbertchen/duplicacy/duplicacy && \
