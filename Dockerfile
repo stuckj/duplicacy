@@ -9,7 +9,7 @@ RUN echo "**** install security fix packages ****" && \
     echo "**** install mandatory packages ****" && \
     apk --no-cache --no-progress add \
         tar=1.34-r1 \
-        xz=5.2.8-r0 \
+        xz=5.2.9-r0 \
         && \
     echo "**** create folders ****" && \
     mkdir -p /s6 && \
