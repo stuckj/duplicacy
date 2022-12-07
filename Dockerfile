@@ -33,7 +33,7 @@ FROM golang:alpine AS duplicacy-builder
 ENV TAG="v3.0.1"
 
 RUN echo "**** building duplicacy from source ****" && \
-    apk add git \
+    apk --no-cache --no-progress add git \
     GO111MODULE=off go get github.com/gilbertchen/duplicacy \
     cd ${GOPATH}/src/github.com/gilbertchen/duplicacy \
     git reset --hard ${TAG} \
