@@ -66,7 +66,7 @@ ENV BACKUP_CRON="" \
 RUN echo "**** install security fix packages ****" && \
     echo "**** install mandatory packages ****" && \
     apk --no-cache --no-progress add \
-        bash=5.2.9-r0 \
+        bash=5.2.12-r0 \
         tzdata=2022f-r1 \
         zip=3.0-r10 \
         ssmtp=2.64-r18 \
