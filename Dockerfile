@@ -37,6 +37,7 @@ RUN echo "**** building duplicacy from source ****" && \
     GO111MODULE=off go get github.com/gilbertchen/duplicacy/duplicacy && \
     cd ${GOPATH}/src/github.com/gilbertchen/duplicacy && \
     git reset --hard ${TAG} && \
+    go get github.com/gilbertchen/go-dropbox@latest && \
     go install github.com/gilbertchen/duplicacy/duplicacy && \
     cp ${GOPATH}/bin/duplicacy /tmp/duplicacy
     
