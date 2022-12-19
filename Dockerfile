@@ -35,11 +35,11 @@ ENV TAG="v3.0.1"
 RUN echo "**** building duplicacy from source ****" && \
     apk --no-cache --no-progress add git && \
     GO111MODULE=off go get github.com/gilbertchen/duplicacy/duplicacy && \
-    cd ${GOPATH}/src/github.com/gilbertchen/duplicacy && \
+ENV PACKAGEVERSION="3.1.0"
     git reset --hard ${TAG} && \
     go get github.com/gilbertchen/go-dropbox@latest && \
     go install github.com/gilbertchen/duplicacy/duplicacy && \
-    cp ${GOPATH}/bin/duplicacy /tmp/duplicacy
+ENV PACKAGEVERSION="3.1.0"
     
 # rootfs builder
 FROM alpine:3.17.0 AS rootfs-builder
